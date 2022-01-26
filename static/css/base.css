@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@700&family=Pacifico&display=swap');
+
+:root{
+    --black:#2c2c54;
+    --orange:#ff9f1a;
+  }
+
+ html, body {
+      font-family: 'Dongle';
+      font-size: 15px;
+      line-height: 1.5;
+      box-sizing: border-box;
+      margin: 0;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+    }
+
+.nav-link{
+      color: salmon;
+      font-size: 2rem;
+    }
+
+.nav-link:hover{
+      color: green;
+    }
+
+
+.navbar-brand{
+  font-family:'Pacifico', 'cursive';
+  font-size: 2.5rem;
+  color: salmon;
+}
+
+.search{
+  height: 40px;
+  width: 80%;
+  border-radius: 60%;
+  outline: none;
+  border: 2px solid;
+}
+  
+.main {
+  background: url('/media/imageshop.jpg') ;
+  background-size: cover;
+  height: 100vh;
+  background-position-x: 80%;
+  }
+
+.h1-section{
+  font-size: 3rem;
+  font-family: 'Dongle';
+  color: #2c2c54;
+}
+
+.btn1{
+background: black;
+width: 30%;
+font-size: 2rem;
+font-family: 'Dongle';
+color: white;
+}
+
+.navbar-toggler {
+  background: sandybrown;
+}
+
+.div-index{
+  margin-left: 10%;
+  margin-top: 20%;
+}
+  
+  
+@media only screen and (min-width: 768px) {
+  .nav-search{
+    margin-right: 10%;
+  }
+  
+}
+
+@media only screen and (max-width: 768px) {
+  .flexbox{
+    align-items: center;
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    width: 200px;
+  }
+
+  .div-index{
+    margin-top: 120%;
+  }
+
+  .btn1{
+    background: black;
+    width: 80%;
+    font-size: 2rem;
+    font-family: 'Dongle';
+    color: white;
+    }
+    
+  
+}
