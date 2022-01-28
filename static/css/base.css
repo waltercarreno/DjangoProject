@@ -8,13 +8,8 @@
 
  html, body {
       font-family: 'Dongle';
-      font-size: 15px;
-      line-height: 1.5;
-      box-sizing: border-box;
-      margin: 0;
-      overflow: hidden;
-      top: 0;
-      left: 0;
+      font-size: 25px;
+      overflow: auto;
     }
 
 .nav-link{
