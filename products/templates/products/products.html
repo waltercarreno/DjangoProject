@@ -15,11 +15,15 @@
         {% for product in products %}
          <div class="col-lg-3">
              <div class="card h-100 bg-light">
+              <a href="{% url 'product_id' product.id %}">
                 <div class="card-body">
                     <img class=" img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
                 </div>
+              </a>
                 {% if product.rating %}
-                <h6 class="text-center"><i class="fas fa-star" style="font-size: small;"></i>{{ product.rating }}</h6>
+                <h6 class="text-center"><i class="fa fa-star" style="font-size: small;"></i>{{ product.rating }}</h6>
+                {% else %}
+                <h6 class="text-center"><i class="fa fa-star" style="font-size: small;"></i>No rating</h6>
                 {% endif %}
                 <h6 class="text-center">{{ product.name }}</h6>
                 <h6 class="text-center">{{ product.price }} $</h6>
