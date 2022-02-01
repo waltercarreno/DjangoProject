@@ -9,20 +9,17 @@
       <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Blog</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Services
+              Categories
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <a href="{% url 'products' %}?category=shoes" class="dropdown-item">Shoes</a>
+              <a href="{% url 'products' %}?category=jeans" class="dropdown-item">Jeans</a>
+              <a href="{% url 'products' %}?category=shirts" class="dropdown-item">Shirts</a>
+              <a href="{% url 'products' %}?category=accessories" class="dropdown-item">Accessories</a>
             </ul>
           </li>
           <li class="nav-item">
@@ -33,14 +30,14 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Pricing
+              Order by
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+            <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
+              <a href="{% url 'products' %}?sort=price&direction=asc" class="dropdown-item">By Price</a>
+              <a href="{% url 'products' %}?sort=rating&direction=desc" class="dropdown-item ">By Rating</a>
+              <a href="{% url 'products' %}?sort=category&direction=asc" class="dropdown-item ">By Category</a>
+              <a href="{% url 'products' %}" class="dropdown-item">All Products</a>
+          </div>
           </li>
         </ul>
         <form method="GET" action="{% url 'products' %}" class="d-flex ms-auto ">

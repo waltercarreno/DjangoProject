@@ -9,16 +9,18 @@
     </div>
 {% endblock %}
 
-{% block content %}
 
+{% block content %}
 <div class="container single-product">
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-5 ">
+            <div class="image-container">
             {% if product.image %}
-            <img class=" img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}" width = "100%">
+            <img class=" img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}"  class="card-img-top" width = "100%">
+            </div>
         </div>
         <div class="col-lg-5">
-            <h4><i class="fa fa-star" style="font-size: small;"></i>{{ product.rating }}</h4>
+            <h4><i style="color:yellow;"class="fa fa-star" style="font-size: small;"></i>{{ product.rating }}/5</h4>
             {% else %}
             <h4><i class="fa fa-star" style="font-size: small;"></i>No rating</h4>
             {% endif %}
@@ -38,5 +40,58 @@
 
     </div>
 </div>
+<div class="row">
+    {% for product in related_products %}
+        <div class="col-lg-3">
+            <div class="card related-product">
+               <a href="{% url 'product_id' product.id %}">
+                 <div class="card-body">
+                     <img class=" card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}">
+                 </div>
+               </a>
+               <div class="card-content">
+                 {% if product.rating %}
+                 <h6 class="text-center"><i style="color:yellow;" class="fa fa-star" style="font-size: small;"></i>{{ product.rating }}/5</h6>
+                 {% else %}
+                 <h6 class="text-center"><i style="color:yellow;" class="fa fa-star" style="font-size: small;"></i>No rating</h6>
+                 {% endif %}
+                 <h6 class="text-center">{{ product.name }}</h6>
+                 <h6 class="text-center">{{ product.price }} $</h6>
+               </div>
+            </div>
+       </div>
+    {% endfor %}
+</div>
+{% endblock %}
 
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+		$('.btt-link').click(function(e) {
+			window.scrollTo(0,0)
+		})
+	</script>
+    
+    <script type="text/javascript">
+        $('#sort-selector').change(function() {
+            var selector = $(this);
+            var currentUrl = new URL(window.location);
+
+            var selectedVal = selector.val();
+            if(selectedVal != "reset"){
+                var sort = selectedVal.split("_")[0];
+                var direction = selectedVal.split("_")[1];
+
+                currentUrl.searchParams.set("sort", sort);
+                currentUrl.searchParams.set("direction", direction);
+
+                window.location.replace(currentUrl);
+            } else {
+                currentUrl.searchParams.delete("sort");
+                currentUrl.searchParams.delete("direction");
+
+                window.location.replace(currentUrl);
+            }
+        })
+    </script>
 {% endblock %}
