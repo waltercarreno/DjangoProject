@@ -33,9 +33,22 @@
                 <option> M</option>
                 <option> S</option>
             </select>
-            <input type="number" value="1">
-            <button class="btn product-button">Add card</button>
             <p>{{ product.description }}</p>
+            <div>
+                <form class="form" action="{% url 'add_to_bag' product.id %}" method="POST">
+                    {% csrf_token %}
+                    <div id="SelectedProduct">
+                        <h3 class="product-price">{{ product.price }}</h3>
+                        <div class="qty-input">
+                            <span class="text-uppercase">QTY: </span>
+                            <input class="input" name="quantity" type="number" value="1" min="1" max="{{ product.amount }}">
+                            <button type="submit" {% if product.amount < 1  %} disabled {% endif %} class="primary-btn add-to-cart">
+                                <i class="fa fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
 
     </div>
