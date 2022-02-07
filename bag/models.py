@@ -1,8 +1,10 @@
+from django.contrib.auth.models import User
 from django.db import models
 from products.models import Product,Category
 from django.forms import ModelForm
 
 class ShopCart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField()
     def __str__(self):

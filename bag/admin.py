@@ -10,6 +10,7 @@ class ShopCartAdmin(admin.ModelAdmin):
         'quantity',
         'price',
         'amount',
+        'user',
     )
 
 

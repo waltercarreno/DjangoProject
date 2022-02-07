@@ -35,7 +35,7 @@
             </select>
             <p>{{ product.description }}</p>
             <div>
-                <form class="form" action="{% url 'add_to_bag' product.id %}" method="POST">
+                <form class="form" action="{% url 'addtoshopcart' product.id %}" method="POST">
                     {% csrf_token %}
                     <div id="SelectedProduct">
                         <h3 class="product-price">{{ product.price }}</h3>
