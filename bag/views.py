@@ -1,48 +1,24 @@
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
-from bag.models import ShopCart, ShopCartForm
-from products.models import Category, Product
+from django.shortcuts import render, redirect
 
+# Create your views here.
+def view_bag(request):
+    """ A view that renders the bag contents page """
 
+    return render(request, 'bag/bag.html')
 
-def addtoshopcart(request,id):
-    url = request.META.get('HTTP_REFERER')  # get last url
-    current_user = request.user  # Access User Session information
-    checkproduct = ShopCart.objects.filter(product_id=id)
-    if checkproduct:
-        control = 1
+def add_to_bag(request, item_id):
+    """ Add a quantity of the specified product to the shopping bag """
+
+    quantity = int(request.POST.get('quantity'))
+    redirect_url = request.POST.get('redirect_url')
+    bag = request.session.get('bag', {})
+
+    if item_id in list(bag.keys()):
+        bag[item_id] += quantity
     else:
-        control = 0
-    
-    if request.method == 'POST':
-        form = ShopCartForm(request.POST)
-        if form.is_valid():
-            if control==1:
-                data = ShopCart.objects.get(product_id=id)
-                data.quantity += form.cleaned_data[ 'quantity']
-                data.save()
-            else:
-                data = ShopCart()  # model ile bağlantı kur
-                data.user_id = current_user.id
-                data.product_id = id
-                data.quantity = 1
-                data.save() 
-        messages.success(request, "Product added to Shopcart")
-        return HttpResponseRedirect(url)
+        bag[item_id] = quantity
 
+    request.session['bag'] = bag
+    print(request.session['bag'])
+    return redirect(redirect_url)
 
-def shopcart(request):
-    category = Category.objects.all()
-    current_user = request.user  # Access User Session information
-    shopcart = ShopCart.objects.filter(user_id=current_user.id)
-    total=0
-    for rs in shopcart:
-        total += rs.product.price * rs.quantity
-    #return HttpResponse(str(total))
-    context={'shopcart': shopcart,
-             'category':category,
-             'total': total,
-             }
-    return render(request,'bag/bag.html',context)
