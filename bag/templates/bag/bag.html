@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block page_header %}
-    <div class="container header-container">
+    <div class="container header-container cart-page">
         <div class="row">
             <div class="col"></div>
         </div>
@@ -10,30 +10,50 @@
 {% endblock %}
 
 {% block content %}
-    <div class="overlay"></div>
-    <div class="container mb-2">
-        <div class="row">
-            <div class="col">
-                <hr>
-                <h2 class="logo-font mb-4">Shopping Bag</h2>
-                <hr>
-            </div>
-        </div>
+<div class="small-container cart-page">
+    <table>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Product Info</th>
+            <th scope="col">Price</th>
+            <th scope="col">Qty</th>
+            <th scope="col">Modify </th>
+        </tr>
+        {% for item in bag_items %}
+        <tr>
+            <td class="p-3 w-25">
+                <img class="img-fluid rounded" src="{{ item.product.image.url }}">
+            </td>
+            <td>
+                <p class="my-0"><strong>{{ item.product.name }}</strong></p>
+                <p class="my-0 small text-muted">SKU: {{ item.product.sku|upper }}</p>
+            </td>
+            <td>
+               <p>{{ item.product.price }}</p> 
+            </td>
+            <td>
+                <p>{{ item.quantity }}</p> 
+             </td>
+            <td>
+                <form class="text-center" method="post"
+                action="{% url 'adjust_cart' item.id %}">
+                {% csrf_token %}
+                <div class="form-group ">
+                    <label for="exampleInputAmount" class="sr-only">New Qty</label>
+                    <div class="input-group">
+                        <input name="quantity" type="number" min="0" max="999" class="form-control"
+                            required="true" placeholder="Quantity">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-warning">
+                    <span aria-hidden="true"></span>Amend</button>
+            </form>
+            </td>
 
-        <div class="row">
-            <div class="col">
-                {% if bag_items %}
-                    <div class="table-responsive rounded"></div>
-                {% else %}
-                    <p class="lead mb-5">Your bag is empty.</p>
-                    <a href="{% url 'products' %}" class="btn btn-outline-black rounded-0 btn-lg">
-                        <span class="icon">
-                            <i class="fas fa-chevron-left"></i>
-                        </span>
-                        <span class="text-uppercase">Keep Shopping</span>
-                    </a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
+
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
 {% endblock %}

@@ -132,6 +132,27 @@ color: white;
 
 /* Related product */
 
+.cart-page{
+  margin: 80px auto;
+}
+
+table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th{
+  text-align: left;
+  padding: 5px;
+  color: #fff;
+  background-color: #2c2c54;
+  font-weight: normal;
+}
+
+td {
+  padding: 5px;
+}
+
 
 
 /* Pagination * /
