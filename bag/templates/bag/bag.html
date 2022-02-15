@@ -10,28 +10,29 @@
 {% endblock %}
 
 {% block content %}
-<div class="small-container cart-page">
+<div class="container cart-page">
+    {% if bag_items %}
     <table>
         <tr>
             <th scope="col"></th>
             <th scope="col">Product Info</th>
             <th scope="col">Price</th>
             <th scope="col">Qty</th>
-            <th scope="col">Modify </th>
+            <th scope="col">Delete </th>
         </tr>
         {% for item in bag_items %}
         <tr>
             <td class="p-3 w-25">
                 <img class="img-fluid rounded" src="{{ item.product.image.url }}">
             </td>
-            <td>
+            <td class="p-3 w-25">
                 <p class="my-0"><strong>{{ item.product.name }}</strong></p>
                 <p class="my-0 small text-muted">SKU: {{ item.product.sku|upper }}</p>
             </td>
-            <td>
+            <td class="p-3 w-25">
                <p>{{ item.product.price }}</p> 
             </td>
-            <td>
+            <td class="p-3 w-25">
                 <p>{{ item.quantity }}</p> 
              </td>
             <td>
@@ -39,21 +40,39 @@
                 action="{% url 'adjust_cart' item.id %}">
                 {% csrf_token %}
                 <div class="form-group ">
-                    <label for="exampleInputAmount" class="sr-only">New Qty</label>
                     <div class="input-group">
                         <input name="quantity" type="number" min="0" max="999" class="form-control"
-                            required="true" placeholder="Quantity">
+                            required="true" placeholder="NewQuantity">
                     </div>
+                    <button type="submit" class="btn btn-warning">
+                        <span aria-hidden="true"></span>Amend</button>
                 </div>
-                <button type="submit" class="btn btn-warning">
-                    <span aria-hidden="true"></span>Amend</button>
+
             </form>
             </td>
 
 
         </tr>
         {% endfor %}
+        <tr>
+        </tr>
     </table>
+    <div class="bg-light text-center text-uppercase ">Order summary </div>
+    <div class="text-right">
+        <h6><strong>Bag Total: €{{ total|floatformat:2 }}</strong></h6>
+        <h6>Delivery: €{{ delivery|floatformat:2 }}</h6>
+        <ul class="list-unstyled mb-4">
+            <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total Amount
+                    Due</strong>
+                <h5 class="font-weight-bold">€ {{ grand_total|floatformat:2 }}</h5>
+            </li>
+        </ul><a href="#" class="btn btn-success text-white rounded-pill py-2 btn-block">Proceed
+            to checkout</a>
+    </div>
+    {% else %}
+    <a class="btn btn-success text-white" href="{% url 'products' %}" role="button">Cart Empty - Return to
+        Shop</a>
+{% endif %}
 </div>
 
 {% endblock %}
